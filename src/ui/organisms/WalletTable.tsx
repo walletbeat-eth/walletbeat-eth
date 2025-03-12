@@ -1,13 +1,10 @@
-import { ratedWallets } from '@/data/wallets'
-import type { AttributeGroup, ValueSet, EvaluatedGroup } from '@/schema/attributes'
-import type { RatedWallet } from '@/schema/wallet'
-import { Box, type SxProps } from '@mui/material'
-import { DataGrid, type GridColDef } from '@mui/x-data-grid'
-import type React from 'react'
-import {
-	WalletRatingCell,
-	walletRatingColumnProps,
-} from '@/ui/molecules/WalletRatingCell'
+import { ratedWallets } from '@/data/wallets';
+import type { AttributeGroup, ValueSet, EvaluatedGroup } from '@/schema/attributes';
+import type { RatedWallet } from '@/schema/wallet';
+import { Box, Paper, TableContainer, type SxProps } from '@mui/material';
+import { DataGrid, type GridColDef } from '@mui/x-data-grid';
+import type React from 'react';
+import { WalletRatingCell, walletRatingColumnProps } from '@/ui/molecules/WalletRatingCell';
 import {
 	ecosystemAttributeGroup,
 	type EvaluationTree,
@@ -15,52 +12,52 @@ import {
 	securityAttributeGroup,
 	selfSovereigntyAttributeGroup,
 	transparencyAttributeGroup,
-} from '@/schema/attribute-groups'
-import { WalletNameCell } from '@/ui/molecules/WalletNameCell'
-import { type Dispatch, type SetStateAction, useState } from 'react'
-import { expandedRowHeight, shortRowHeight } from '../../components/constants'
+} from '@/schema/attribute-groups';
+import { WalletNameCell } from '@/ui/molecules/WalletNameCell';
+import { type Dispatch, type SetStateAction, useState } from 'react';
+import { expandedRowHeight, shortRowHeight } from '../../components/constants';
 import type {
 	WalletRowState,
 	WalletRowStateHandle,
 	WalletTableState,
 	WalletTableStateHandle,
-} from '../WalletTableState'
-import type { Variant } from '@/schema/variants'
-import { ThemeProvider } from '@mui/system'
-import { walletTableTheme } from '@/components/ThemeRegistry/theme'
+} from '../WalletTableState';
+import type { Variant } from '@/schema/variants';
+import { ThemeProvider } from '@mui/system';
+import { walletTableTheme } from '@/components/ThemeRegistry/theme';
 
 class TableStateHandle implements WalletTableStateHandle {
-	readonly variantSelected: Variant | null
+	readonly variantSelected: Variant | null;
 
-	private readonly setTableState: Dispatch<SetStateAction<WalletTableState>>
+	private readonly setTableState: Dispatch<SetStateAction<WalletTableState>>;
 
 	constructor(
 		tableState: WalletTableState,
 		setTableState: Dispatch<SetStateAction<WalletTableState>>,
 	) {
-		this.variantSelected = tableState.variantSelected
-		this.setTableState = setTableState
+		this.variantSelected = tableState.variantSelected;
+		this.setTableState = setTableState;
 	}
 
 	variantClick(clicked: Variant): void {
 		this.setTableState(prevState => ({
 			variantSelected: clicked === prevState.variantSelected ? null : clicked,
-		}))
+		}));
 	}
 }
 
 /** Class handling rendering and scoring a single wallet row. */
 class WalletRow implements WalletRowStateHandle {
-	readonly wallet: RatedWallet
-	readonly evalTree: EvaluationTree
-	readonly table: WalletTableStateHandle
-	readonly expanded: boolean
-	readonly rowWideStyle: SxProps
+	readonly wallet: RatedWallet;
+	readonly evalTree: EvaluationTree;
+	readonly table: WalletTableStateHandle;
+	readonly expanded: boolean;
+	readonly rowWideStyle: SxProps;
 
 	/** Data table ID; required by DataGrid. */
-	readonly id: string
+	readonly id: string;
 
-	private readonly setRowsState: Dispatch<SetStateAction<Record<string, WalletRowState>>>
+	private readonly setRowsState: Dispatch<SetStateAction<Record<string, WalletRowState>>>;
 
 	constructor(
 		wallet: RatedWallet,
@@ -68,23 +65,23 @@ class WalletRow implements WalletRowStateHandle {
 		rowsState: Record<string, WalletRowState>,
 		setRowsState: Dispatch<SetStateAction<Record<string, WalletRowState>>>,
 	) {
-		this.wallet = wallet
-		this.id = wallet.metadata.id
-		this.table = tableStateHandle
-		const rowState = rowsState[this.id] ?? { expanded: false }
-		this.expanded = rowState.expanded
-		this.setRowsState = setRowsState
-		this.rowWideStyle = {}
-		this.evalTree = wallet.overall
+		this.wallet = wallet;
+		this.id = wallet.metadata.id;
+		this.table = tableStateHandle;
+		const rowState = rowsState[this.id] ?? { expanded: false };
+		this.expanded = rowState.expanded;
+		this.setRowsState = setRowsState;
+		this.rowWideStyle = {};
+		this.evalTree = wallet.overall;
 		if (tableStateHandle.variantSelected !== null) {
-			const walletForVariant = wallet.variants[tableStateHandle.variantSelected]
+			const walletForVariant = wallet.variants[tableStateHandle.variantSelected];
 			if (walletForVariant === undefined) {
 				this.rowWideStyle = {
 					filter: 'contrast(65%)',
 					opacity: 0.5,
-				}
+				};
 			} else {
-				this.evalTree = walletForVariant.attributes
+				this.evalTree = walletForVariant.attributes;
 			}
 		}
 	}
@@ -95,7 +92,7 @@ class WalletRow implements WalletRowStateHandle {
 			[this.id]: {
 				expanded: !this.expanded,
 			},
-		}))
+		}));
 	}
 
 	setExpanded(expanded: boolean): void {
@@ -104,17 +101,17 @@ class WalletRow implements WalletRowStateHandle {
 			[this.id]: {
 				expanded,
 			},
-		}))
+		}));
 	}
 
 	/** Get the height of the row in pixels. */
 	getRowHeight(): number {
-		return this.expanded ? expandedRowHeight : shortRowHeight
+		return this.expanded ? expandedRowHeight : shortRowHeight;
 	}
 
 	/** Render the "Name" cell. */
 	renderName(): React.JSX.Element {
-		return <WalletNameCell row={this} />
+		return <WalletNameCell row={this} />;
 	}
 
 	/** Compute numerical score for an attribute group. */
@@ -122,8 +119,8 @@ class WalletRow implements WalletRowStateHandle {
 		attrGroup: AttributeGroup<Vs>,
 		evalGroupFn: (tree: EvaluationTree) => EvaluatedGroup<Vs>,
 	): number {
-		const score = attrGroup.score(evalGroupFn(this.wallet.overall))
-		return score === null ? 0.0 : score.score
+		const score = attrGroup.score(evalGroupFn(this.wallet.overall));
+		return score === null ? 0.0 : score.score;
 	}
 
 	/** Render a cell for a rating column. */
@@ -131,7 +128,7 @@ class WalletRow implements WalletRowStateHandle {
 		attrGroup: AttributeGroup<Vs>,
 		evalGroupFn: (tree: EvaluationTree) => EvaluatedGroup<Vs>,
 	): React.JSX.Element {
-		return <WalletRatingCell<Vs> row={this} attrGroup={attrGroup} evalGroupFn={evalGroupFn} />
+		return <WalletRatingCell<Vs> row={this} attrGroup={attrGroup} evalGroupFn={evalGroupFn} />;
 	}
 }
 
@@ -148,19 +145,19 @@ function walletTableColumn<Vs extends ValueSet>(
 		width: 128,
 		valueGetter: (_: never, row: WalletRow): number => row.score(group, evalGroupFn),
 		renderCell: params => params.row.render(group, evalGroupFn),
-	}
+	};
 }
 
 /** Main wallet comparison table. */
 export default function WalletTable(): React.JSX.Element {
 	const [tableState, setTableState] = useState<WalletTableState>({
 		variantSelected: null,
-	})
-	const tableStateHandle = new TableStateHandle(tableState, setTableState)
-	const [rowsState, setRowsState] = useState<Record<string, WalletRowState>>({})
+	});
+	const tableStateHandle = new TableStateHandle(tableState, setTableState);
+	const [rowsState, setRowsState] = useState<Record<string, WalletRowState>>({});
 	const rows = Object.values(ratedWallets).map(
 		wallet => new WalletRow(wallet, tableStateHandle, rowsState, setRowsState),
-	)
+	);
 	const walletNameColumn: GridColDef<WalletRow, string> = {
 		field: 'displayName',
 		headerName: 'Wallet',
@@ -168,7 +165,7 @@ export default function WalletTable(): React.JSX.Element {
 		width: 320,
 		valueGetter: (_: never, row: WalletRow): string => row.wallet.metadata.displayName,
 		renderCell: params => params.row.renderName(),
-	}
+	};
 	const columns: GridColDef[] = [
 		walletNameColumn,
 		walletTableColumn(securityAttributeGroup, tree => tree.security),
@@ -176,36 +173,75 @@ export default function WalletTable(): React.JSX.Element {
 		walletTableColumn(selfSovereigntyAttributeGroup, tree => tree.selfSovereignty),
 		walletTableColumn(transparencyAttributeGroup, tree => tree.transparency),
 		walletTableColumn(ecosystemAttributeGroup, tree => tree.ecosystem),
-	]
+	];
 	return (
 		<div
-			className="w-full h-full overflow-auto"
-		//  maxWidth="100%" height="80vh" width="fit-content" overflow="auto"
+			className="w-full h-full overflow-auto p-4 bg-secondary"
+			//  maxWidth="100%" height="80vh" width="fit-content" overflow="auto"
 		>
+			<p className="text-xs opacity-70">
+				Wallet features and security practices evolve constantly! This information represents our best understanding at the time of publication.
+				We welcome community contributions to keep our data accurate and up-to-date — your insights help make this resource valuable for everyone! 💖
+			</p>
 			<ThemeProvider theme={walletTableTheme}>
-				<DataGrid<WalletRow>
-					rows={rows}
-					columns={columns}
-					getRowHeight={row => (row.model as WalletRow).getRowHeight()} // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion -- The row model is WalletRow.
-					density="standard"
-					disableRowSelectionOnClick
-					initialState={{
-						sorting: {
-							sortModel: [{ field: walletNameColumn.field, sort: 'asc' }],
-						},
-					}}
-					disableVirtualization={true}
-					sx={{
-						'& .MuiDataGrid-cell:first-child': {
-							position: 'sticky',
-							left: 0,
-							zIndex: 1,
-							backgroundColor: 'background.default',
-							borderRight: '1px solid #141519',
-						},
-					}}
-				/>
+					<Box
+						component="table"
+						sx={{
+							width: '100%',
+							tableLayout: 'fixed', // This ensures fixed column widths
+							borderCollapse: 'collapse',
+							'& th, & td': {
+								p: 1,
+								textAlign: 'left',
+								borderBottom: '1px solid rgba(224, 224, 224, 1)',
+								overflow: 'hidden',
+								textOverflow: 'ellipsis',
+							},
+						}}
+					>
+						<thead>
+							<tr>
+								{columns.map((column, i) => (
+									<Box
+										component="th"
+										key={i}
+										sx={{
+											width: column.width != null ? `${column.width}px` : 'auto',
+										}}
+									>
+										{column.headerName}
+									</Box>
+								))}
+							</tr>
+						</thead>
+						<Box component="tbody">
+							{rows.map((row, i) => (
+								<Box
+									component="tr"
+									key={i}
+									sx={{
+										height: `${row.getRowHeight()}px`,
+										'&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' },
+										...row.rowWideStyle,
+									}}
+								>
+									{columns.map((column, j) => (
+										<Box
+											component="td"
+											key={j}
+											sx={{
+												verticalAlign: 'middle',
+												width: column.width != null ? `${column.width}px` : 'auto',
+											}}
+										>
+											{column.renderCell != null ? column.renderCell({ row }) : row[column.field]}
+										</Box>
+									))}
+								</Box>
+							))}
+						</Box>
+					</Box>
 			</ThemeProvider>
 		</div>
-	)
+	);
 }

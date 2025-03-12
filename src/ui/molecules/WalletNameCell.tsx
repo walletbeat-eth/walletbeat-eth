@@ -79,14 +79,13 @@ export function WalletNameCell({ row }: { row: WalletRowStateHandle }): React.JS
 					height={shortRowHeight}
 					sx={row.rowWideStyle}
 				>
-					<IconButton size="small" onClick={row.toggleExpanded.bind(row)}>
+					<IconButton className='text-secondary' size="small" onClick={row.toggleExpanded.bind(row)}>
 						{row.expanded ? <UnfoldLessIcon /> : <UnfoldMoreIcon />}
 					</IconButton>
 				</Box>
 				<Link
 					href={`${betaSiteRoot}/${row.wallet.metadata.id}/${variantUrlQuery(row.wallet.variants, row.table.variantSelected)}`}
-					color="text.primary"
-					underline="hover"
+					className='text-primary no-underline hover:underline'
 					display="flex"
 					flex="1"
 					gap="inherit"
@@ -146,8 +145,10 @@ export function WalletNameCell({ row }: { row: WalletRowStateHandle }): React.JS
 						alignItems="baseline"
 						gap="6px"
 						paddingBottom="10px"
+						className='text-secondary'
 					>
 						<IconLink
+              className='text-secondary'
 							href={`${betaSiteRoot}/${row.wallet.metadata.id}/${variantUrlQuery(row.wallet.variants, row.table.variantSelected)}`}
 							IconComponent={InfoOutlinedIcon}
 						>
@@ -155,6 +156,7 @@ export function WalletNameCell({ row }: { row: WalletRowStateHandle }): React.JS
 						</IconLink>
 						|
 						<ExternalLink
+						  className='text-secondary'
 							url={row.wallet.metadata.url}
 							defaultLabel={`${row.wallet.metadata.displayName} website`}
 						/>

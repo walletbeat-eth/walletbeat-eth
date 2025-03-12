@@ -11,13 +11,15 @@ export function ExternalLink({
 	style = undefined,
 	rel = 'noopener noreferrer nofollow',
 	children = undefined,
+	className = undefined,
 }: {
 	url: Url
 	defaultLabel?: string
 	color?: TypographyOwnProps['color']
 	style?: React.CSSProperties
 	rel?: string
-	children?: React.ReactNode
+	children?: React.ReactNode,
+	className?: string
 }): React.JSX.Element {
 	const labeled = labeledUrl(url, defaultLabel)
 	const [hovered, setHovered] = useState(false)
@@ -31,6 +33,7 @@ export function ExternalLink({
 				style={style}
 				display="flex"
 				flexDirection="row"
+				className={className}
 				gap="2px"
 				alignItems="baseline"
 				underline="none"

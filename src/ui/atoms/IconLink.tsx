@@ -12,6 +12,7 @@ export function IconLink({
 	style = undefined,
 	rel = 'noopener noreferrer nofollow',
 	children = undefined,
+	className = undefined,
 }: {
 	href: string
 	IconComponent: typeof SvgIcon
@@ -21,6 +22,7 @@ export function IconLink({
 	style?: React.CSSProperties
 	rel?: string
 	children?: React.ReactNode
+	className?: string
 }): React.JSX.Element {
 	const [hovered, setHovered] = useState(false)
 	return (
@@ -30,6 +32,7 @@ export function IconLink({
 				target={target}
 				rel={rel}
 				color={color}
+				className={className}
 				style={style}
 				display="flex"
 				flexDirection="row"

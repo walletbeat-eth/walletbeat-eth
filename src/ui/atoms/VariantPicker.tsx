@@ -1,6 +1,6 @@
 import { type NonEmptyArray, nonEmptyMap } from '@/types/utils/non-empty'
 import type React from 'react'
-import { Box, Tooltip } from '@mui/material'
+import { Box, ButtonGroupButtonContext, Tooltip } from '@mui/material'
 import type { SvgIconComponent } from '@mui/icons-material'
 import { IconButton } from './IconButton'
 import theme from '../../components/ThemeRegistry/theme'
@@ -65,15 +65,12 @@ export function VariantPicker<V extends string>({
 									}}
 								/>
 							) : (
-								<IconButton
+								<button
 									onClick={variant.click}
-									sx={{
-										opacity,
-										color,
-									}}
+									className='text-secondary'
 								>
 									<variant.icon />
-								</IconButton>
+								</button>
 							)}
 						</Box>
 					</Tooltip>
