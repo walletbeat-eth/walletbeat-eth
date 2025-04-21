@@ -1,36 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unsafe-type-assertion -- TODO*/
 import { ratedWallets, type WalletName } from '@/data/wallets'
 import { ratedHardwareWallets, type HardwareWalletName } from '@/data/hardware-wallets'
-import {
-	type EvaluationTree,
-	getEvaluationFromOtherTree,
-	mapAttributeGroups,
-	mapGroupAttributes,
-} from '@/schema/attribute-groups'
+import { type EvaluationTree } from '@/schema/attribute-groups'
 import {
 	isNonEmptyArray,
 	type NonEmptyArray,
 	nonEmptyEntries,
 	nonEmptyKeys,
 	nonEmptyMap,
-	nonEmptyValues,
 } from '@/types/utils/non-empty'
-import { Box, Typography, Paper, styled, Tooltip } from '@mui/material'
+import { Box, Typography, Paper, styled } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { WalletIcon } from '@/ui/atoms/WalletIcon'
 import { AnchorHeader } from '@/ui/atoms/AnchorHeader'
-import { WalletAttribute } from '@/ui/organisms/WalletAttribute'
-import { blend, ThemeProvider } from '@mui/system'
+import { ThemeProvider } from '@mui/system'
 import theme, { subsectionTheme } from '@/components/ThemeRegistry/theme'
-import {
-	type AttributeGroup,
-	type EvaluatedAttribute,
-	type EvaluatedGroup,
-	Rating,
-	ratingToColor,
-	type Value,
-	type ValueSet,
-} from '@/schema/attributes'
 import {
 	navigationListIconSize,
 	sectionIconWidth,
@@ -55,13 +39,12 @@ import {
 	variantToTooltip,
 	variantUrlQuery,
 } from '@/components/variants'
-import { VariantSpecificity, type ResolvedWallet } from '@/schema/wallet'
-import { RenderTypographicContent } from '@/ui/atoms/RenderTypographicContent'
+import { VariantSpecificity } from '@/schema/wallet'
 import { slugifyCamelCase } from '@/types/utils/text'
 import { ReturnToTop } from '@/ui/organisms/ReturnToTop'
 import { WalletDropdown } from '@/ui/molecules/WalletDropdown'
 import { generateFaqSchema } from '@/utils/generateFaqSchema'
-import type { RichSection, Section } from '@/types/schema'
+import type { Section } from '@/types/schema'
 import { getSection } from './WalletPageSection'
 import { ConditionalCornerControl } from '@/ui/atoms/ConditionalCornerControl'
 import { processAttributeGroups } from './ProcessAttributeGroups'
