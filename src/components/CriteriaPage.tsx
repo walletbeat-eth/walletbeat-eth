@@ -242,22 +242,22 @@ export const AttributeGroupSummary = ({
       cell: info => <div className='py-2 font-medium'>{info.getValue().metadata.displayName}</div>,
     }),
 
-		// Dynamic columns for each attribute
-		...mapNonExemptGroupAttributes(
-			getAttributeGroupInTree(representativeWalletForType(WalletType.SOFTWARE).overall, attrGroup),
-			evalAttr =>
-				columnHelper.accessor(
-					row =>
-						row.attributes[evalAttr.attribute.id] ?? {
-							attributeId: evalAttr.attribute.id,
-							rating: Rating.UNRATED,
-						},
-					{
-						id: evalAttr.attribute.id,
-						header: evalAttr.attribute.displayName,
-						cell: info => {
-							const attributeData = info.getValue()
-							const { rating } = attributeData
+    // Dynamic columns for each attribute
+    ...mapNonExemptGroupAttributes(
+      getAttributeGroupInTree(representativeWalletForType(WalletType.SOFTWARE).overall, attrGroup),
+      evalAttr =>
+        columnHelper.accessor(
+          row =>
+            row.attributes[evalAttr.attribute.id] ?? {
+              attributeId: evalAttr.attribute.id,
+              rating: Rating.UNRATED,
+            },
+          {
+            id: evalAttr.attribute.id,
+            header: evalAttr.attribute.displayName,
+            cell: info => {
+              const attributeData = info.getValue();
+              const { rating } = attributeData;
 
               const ratingText =
                 rating === Rating.PASS

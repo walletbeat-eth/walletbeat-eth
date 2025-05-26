@@ -127,44 +127,44 @@ type SecurityValues = Dict<{
 
 /** Security attributes. */
 export const securityAttributeGroup: AttributeGroup<SecurityValues> = {
-	id: 'security',
-	icon: '\u{1f512}', // Lock
-	displayName: 'Security',
-	perWalletQuestion: sentence<Pick<WalletMetadata, 'displayName'>>(
-		(walletMetadata: Pick<WalletMetadata, 'displayName'>): string =>
-			`How secure is ${walletMetadata.displayName}?`,
-	),
-	attributes: {
-		securityAudits,
-		scamPrevention,
-		chainVerification,
-		hardwareWalletDappSigning,
-		hardwareWalletSupport,
-		softwareHWIntegration,
-		passkeyImplementation,
-		bugBountyProgram,
-		supplyChainDIY,
-		supplyChainFactory,
-		firmware,
-		keysHandling,
-		userSafety,
-	},
-	attributeWeights: {
-		securityAudits: 1.0,
-		scamPrevention: 1.0,
-		chainVerification: 1.0,
-		hardwareWalletDappSigning: 1.0,
-		hardwareWalletSupport: 1.0,
-		softwareHWIntegration: 1.0,
-		passkeyImplementation: 1.0,
-		bugBountyProgram: 1.0,
-		supplyChainDIY: 1.0,
-		supplyChainFactory: 1.0,
-		firmware: 1.0,
-		keysHandling: 1.0,
-		userSafety: 1.0,
-	},
-}
+  id: 'security',
+  icon: '\u{1f512}', // Lock
+  displayName: 'Security',
+  perWalletQuestion: sentence<Pick<WalletMetadata, 'displayName'>>(
+    (walletMetadata: Pick<WalletMetadata, 'displayName'>): string =>
+      `How secure is ${walletMetadata.displayName}?`,
+  ),
+  attributes: {
+    securityAudits,
+    scamPrevention,
+    chainVerification,
+    hardwareWalletDappSigning,
+    hardwareWalletSupport,
+    softwareHWIntegration,
+    passkeyImplementation,
+    bugBountyProgram,
+    supplyChainDIY,
+    supplyChainFactory,
+    firmware,
+    keysHandling,
+    userSafety,
+  },
+  attributeWeights: {
+    securityAudits: 1.0,
+    scamPrevention: 1.0,
+    chainVerification: 1.0,
+    hardwareWalletDappSigning: 1.0,
+    hardwareWalletSupport: 1.0,
+    softwareHWIntegration: 1.0,
+    passkeyImplementation: 1.0,
+    bugBountyProgram: 1.0,
+    supplyChainDIY: 1.0,
+    supplyChainFactory: 1.0,
+    firmware: 1.0,
+    keysHandling: 1.0,
+    userSafety: 1.0,
+  },
+};
 
 /** A ValueSet for privacy Values. */
 type PrivacyValues = Dict<{
@@ -175,24 +175,24 @@ type PrivacyValues = Dict<{
 
 /** Privacy attributes. */
 export const privacyAttributeGroup: AttributeGroup<PrivacyValues> = {
-	id: 'privacy',
-	icon: '\u{1f575}', // Detective
-	displayName: 'Privacy',
-	perWalletQuestion: sentence<Pick<WalletMetadata, 'displayName'>>(
-		(walletMetadata: Pick<WalletMetadata, 'displayName'>): string =>
-			`How well does ${walletMetadata.displayName} protect your privacy?`,
-	),
-	attributes: {
-		addressCorrelation,
-		multiAddressCorrelation,
-		hardware_privacy: hardwarePrivacy,
-	},
-	attributeWeights: {
-		addressCorrelation: 1.0,
-		multiAddressCorrelation: 1.0,
-		hardware_privacy: 1.0,
-	},
-}
+  id: 'privacy',
+  icon: '\u{1f575}', // Detective
+  displayName: 'Privacy',
+  perWalletQuestion: sentence<Pick<WalletMetadata, 'displayName'>>(
+    (walletMetadata: Pick<WalletMetadata, 'displayName'>): string =>
+      `How well does ${walletMetadata.displayName} protect your privacy?`,
+  ),
+  attributes: {
+    addressCorrelation,
+    multiAddressCorrelation,
+    hardware_privacy: hardwarePrivacy,
+  },
+  attributeWeights: {
+    addressCorrelation: 1.0,
+    multiAddressCorrelation: 1.0,
+    hardware_privacy: 1.0,
+  },
+};
 
 /** A ValueSet for self-sovereignty Values. */
 type SelfSovereigntyValues = Dict<{
@@ -203,24 +203,24 @@ type SelfSovereigntyValues = Dict<{
 
 /** Self-sovereignty attributes. */
 export const selfSovereigntyAttributeGroup: AttributeGroup<SelfSovereigntyValues> = {
-	id: 'selfSovereignty',
-	icon: '\u{1f3f0}', // Castle
-	displayName: 'Self-sovereignty',
-	perWalletQuestion: sentence<Pick<WalletMetadata, 'displayName'>>(
-		(walletMetadata: Pick<WalletMetadata, 'displayName'>): string =>
-			`How much control and ownership over your wallet does ${walletMetadata.displayName} give you?`,
-	),
-	attributes: {
-		selfHostedNode,
-		accountPortability,
-		transactionInclusion,
-	},
-	attributeWeights: {
-		selfHostedNode: 1.0,
-		accountPortability: 1.0,
-		transactionInclusion: 1.0,
-	},
-}
+  id: 'selfSovereignty',
+  icon: '\u{1f3f0}', // Castle
+  displayName: 'Self-sovereignty',
+  perWalletQuestion: sentence<Pick<WalletMetadata, 'displayName'>>(
+    (walletMetadata: Pick<WalletMetadata, 'displayName'>): string =>
+      `How much control and ownership over your wallet does ${walletMetadata.displayName} give you?`,
+  ),
+  attributes: {
+    selfHostedNode,
+    accountPortability,
+    transactionInclusion,
+  },
+  attributeWeights: {
+    selfHostedNode: 1.0,
+    accountPortability: 1.0,
+    transactionInclusion: 1.0,
+  },
+};
 
 /** A ValueSet for transparency Values. */
 type TransparencyValues = Dict<{
@@ -233,28 +233,28 @@ type TransparencyValues = Dict<{
 
 /** Transparency attributes. */
 export const transparencyAttributeGroup: AttributeGroup<TransparencyValues> = {
-	id: 'transparency',
-	icon: '\u{1f50d}', // Looking glass
-	displayName: 'Transparency',
-	perWalletQuestion: sentence<Pick<WalletMetadata, 'displayName'>>(
-		(walletMetadata: Pick<WalletMetadata, 'displayName'>): string =>
-			`How transparent and sustainable is ${walletMetadata.displayName}'s development model?`,
-	),
-	attributes: {
-		openSource,
-		sourceVisibility,
-		funding,
-		feeTransparency,
-		reputation,
-	},
-	attributeWeights: {
-		openSource: 1.0,
-		sourceVisibility: 1.0,
-		funding: 1.0,
-		feeTransparency: 1.0,
-		reputation: 1.0,
-	},
-}
+  id: 'transparency',
+  icon: '\u{1f50d}', // Looking glass
+  displayName: 'Transparency',
+  perWalletQuestion: sentence<Pick<WalletMetadata, 'displayName'>>(
+    (walletMetadata: Pick<WalletMetadata, 'displayName'>): string =>
+      `How transparent and sustainable is ${walletMetadata.displayName}'s development model?`,
+  ),
+  attributes: {
+    openSource,
+    sourceVisibility,
+    funding,
+    feeTransparency,
+    reputation,
+  },
+  attributeWeights: {
+    openSource: 1.0,
+    sourceVisibility: 1.0,
+    funding: 1.0,
+    feeTransparency: 1.0,
+    reputation: 1.0,
+  },
+};
 
 /** A ValueSet for ecosystem Values. */
 type EcosystemValues = Dict<{
@@ -266,26 +266,26 @@ type EcosystemValues = Dict<{
 
 /** Ecosystem attributes. */
 export const ecosystemAttributeGroup: AttributeGroup<EcosystemValues> = {
-	id: 'ecosystem',
-	icon: '🌐',
-	displayName: 'Ecosystem',
-	perWalletQuestion: sentence<Pick<WalletMetadata, 'displayName'>>(
-		(walletMetadata: Pick<WalletMetadata, 'displayName'>): string =>
-			`How well does ${walletMetadata.displayName} align with the ecosystem?`,
-	),
-	attributes: {
-		accountAbstraction,
-		addressResolution,
-		browserIntegration,
-		interoperability,
-	},
-	attributeWeights: {
-		accountAbstraction: 1.0,
-		addressResolution: 1.0,
-		browserIntegration: 1.0,
-		interoperability: 1.0,
-	},
-}
+  id: 'ecosystem',
+  icon: '🌐',
+  displayName: 'Ecosystem',
+  perWalletQuestion: sentence<Pick<WalletMetadata, 'displayName'>>(
+    (walletMetadata: Pick<WalletMetadata, 'displayName'>): string =>
+      `How well does ${walletMetadata.displayName} align with the ecosystem?`,
+  ),
+  attributes: {
+    accountAbstraction,
+    addressResolution,
+    browserIntegration,
+    interoperability,
+  },
+  attributeWeights: {
+    accountAbstraction: 1.0,
+    addressResolution: 1.0,
+    browserIntegration: 1.0,
+    interoperability: 1.0,
+  },
+};
 
 /** A ValueSet for maintenance Values. */
 type MaintenanceValues = Dict<{
@@ -294,20 +294,20 @@ type MaintenanceValues = Dict<{
 
 /** Maintenance attributes. */
 export const maintenanceAttributeGroup: AttributeGroup<MaintenanceValues> = {
-	id: 'maintenance',
-	icon: '🛠️',
-	displayName: 'Maintenance',
-	perWalletQuestion: sentence<Pick<WalletMetadata, 'displayName'>>(
-		(walletMetadata: Pick<WalletMetadata, 'displayName'>): string =>
-			`How well-maintained is ${walletMetadata.displayName}?`,
-	),
-	attributes: {
-		maintenance,
-	},
-	attributeWeights: {
-		maintenance: 1.0,
-	},
-}
+  id: 'maintenance',
+  icon: '🛠️',
+  displayName: 'Maintenance',
+  perWalletQuestion: sentence<Pick<WalletMetadata, 'displayName'>>(
+    (walletMetadata: Pick<WalletMetadata, 'displayName'>): string =>
+      `How well-maintained is ${walletMetadata.displayName}?`,
+  ),
+  attributes: {
+    maintenance,
+  },
+  attributeWeights: {
+    maintenance: 1.0,
+  },
+};
 
 /** The set of attribute groups that make up wallet attributes. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Necessary to allow any Attribute implementation.
@@ -647,34 +647,34 @@ export function getEvaluationFromOtherTree<V extends Value>(
  * @returns A score between 0.0 (lowest) and 1.0 (highest) or null if exempt.
  */
 export function calculateAttributeGroupScore<Vs extends ValueSet>(
-	weights: AttributeGroup<Vs>['attributeWeights'],
-	evaluations: EvaluatedGroup<Vs>,
+  weights: AttributeGroup<Vs>['attributeWeights'],
+  evaluations: EvaluatedGroup<Vs>,
 ): MaybeUnratedScore {
-	const subScores: WeightedScore[] = nonEmptyValues<keyof Vs, WeightedScore | null>(
-		nonEmptyRemap(weights, (key: keyof Vs, weight: number): WeightedScore | null => {
-			const { value } = evaluations[key].evaluation
-			const score = value.score ?? defaultRatingScore(value.rating)
+  const subScores: WeightedScore[] = nonEmptyValues<keyof Vs, WeightedScore | null>(
+    nonEmptyRemap(weights, (key: keyof Vs, weight: number): WeightedScore | null => {
+      const { value } = evaluations[key].evaluation;
+      const score = value.score ?? defaultRatingScore(value.rating);
 
-			return score === null
-				? null
-				: {
-						score,
-						weight,
-					}
-		}),
-	).filter(score => score !== null)
+      return score === null
+        ? null
+        : {
+            score,
+            weight,
+          };
+    }),
+  ).filter(score => score !== null);
 
-	if (isNonEmptyArray(subScores)) {
-		let hasUnratedComponent = false
+  if (isNonEmptyArray(subScores)) {
+    let hasUnratedComponent = false;
 
-		for (const evalAttr of evaluatedAttributes(evaluations)) {
-			hasUnratedComponent ||= evalAttr.evaluation.value.rating === Rating.UNRATED
-		}
+    for (const evalAttr of evaluatedAttributes(evaluations)) {
+      hasUnratedComponent ||= evalAttr.evaluation.value.rating === Rating.UNRATED;
+    }
 
-		return { score: weightedScore(subScores), hasUnratedComponent }
-	}
+    return { score: weightedScore(subScores), hasUnratedComponent };
+  }
 
-	return null
+  return null;
 }
 
 /**

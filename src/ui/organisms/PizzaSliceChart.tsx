@@ -1,18 +1,18 @@
 import { type ReactElement, useState } from 'react';
 
 import {
-	calculateAttributeGroupScore,
-	mapNonExemptGroupAttributes,
-	numNonExemptGroupAttributes,
-} from '@/schema/attribute-groups'
+  calculateAttributeGroupScore,
+  mapNonExemptGroupAttributes,
+  numNonExemptGroupAttributes,
+} from '@/schema/attribute-groups';
 import {
-	type AttributeGroup,
-	type EvaluatedGroup,
-	ratingToColor,
-	type ValueSet,
-} from '@/schema/attributes'
-import type { RatedWallet } from '@/schema/wallet'
-import { cx } from '@/utils/cx'
+  type AttributeGroup,
+  type EvaluatedGroup,
+  ratingToColor,
+  type ValueSet,
+} from '@/schema/attributes';
+import type { RatedWallet } from '@/schema/wallet';
+import { cx } from '@/utils/cx';
 
 import { RatingDetailModal } from '../molecules/RatingDetailModal';
 
@@ -31,7 +31,7 @@ export const PizzaSliceChart = <Vs extends ValueSet>({
   // Add state for the modal
   const [modalOpen, setModalOpen] = useState(false);
 
-	const attrGroupScore = calculateAttributeGroupScore(attrGroup.attributeWeights, evalGroup)
+  const attrGroupScore = calculateAttributeGroupScore(attrGroup.attributeWeights, evalGroup);
 
   if (attrGroupScore === null) {
     // All attributes in the group are exempt, can't render pie chart.
