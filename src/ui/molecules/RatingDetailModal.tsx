@@ -4,20 +4,21 @@ import type React from 'react';
 import { useEffect, useState } from 'react';
 
 import {
-  mapNonExemptGroupAttributes,
-  numNonExemptGroupAttributes,
-} from '@/schema/attribute-groups';
+	calculateAttributeGroupScore,
+	mapNonExemptGroupAttributes,
+	numNonExemptGroupAttributes,
+} from '@/schema/attribute-groups'
 import {
-  type AttributeGroup,
-  type EvaluatedGroup,
-  ratingToColor,
-  type ValueSet,
-} from '@/schema/attributes';
-import type { HardwareWalletModel } from '@/schema/features/profile';
-import { type FullyQualifiedReference, toFullyQualified } from '@/schema/reference';
-import type { LabeledUrl } from '@/schema/url';
-import type { RatedWallet } from '@/schema/wallet';
-import { toKebabCase } from '@/utils/kebab';
+	type AttributeGroup,
+	type EvaluatedGroup,
+	ratingToColor,
+	type ValueSet,
+} from '@/schema/attributes'
+import type { HardwareWalletModel } from '@/schema/features/profile'
+import { type FullyQualifiedReference, toFullyQualified } from '@/schema/reference'
+import type { LabeledUrl } from '@/schema/url'
+import type { RatedWallet } from '@/schema/wallet'
+import { toKebabCase } from '@/utils/kebab'
 
 import { RenderContent } from '../atoms/RenderContent';
 import { RatingStatusBadge } from './RatingStatusBadge';
@@ -103,8 +104,8 @@ export function RatingDetailContent<Vs extends ValueSet>({
     }
   }, [flagshipModel, selectedModel]);
 
-  const attrGroupScore = attrGroup.score(evalGroup);
-  const overallScore = attrGroupScore === null ? 0 : attrGroupScore.score;
+	const attrGroupScore = calculateAttributeGroupScore(attrGroup.attributeWeights, evalGroup)
+	const overallScore = attrGroupScore === null ? 0 : attrGroupScore.score
 
   // Create SVG slices for the enlarged chart
   const createEnlargedSlices = (): React.JSX.Element[] => {

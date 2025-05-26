@@ -1,11 +1,11 @@
 import type { Paragraph, Renderable, RenderableTypography, Sentence } from '@/types/content';
 import { type NonEmptyArray, nonEmptyMap, type NonEmptyRecord } from '@/types/utils/non-empty';
 
-import type { ResolvedFeatures } from './features';
-import type { FullyQualifiedReference, ReferenceArray } from './reference';
-import type { MaybeUnratedScore, Score } from './score';
-import type { AtLeastOneVariant } from './variants';
-import type { RatedWallet, WalletMetadata } from './wallet';
+import type { ResolvedFeatures } from './features'
+import type { FullyQualifiedReference, ReferenceArray } from './reference'
+import type { Score } from './score'
+import type { AtLeastOneVariant } from './variants'
+import type { RatedWallet, WalletMetadata } from './wallet'
 
 /**
  * Rating is an enum that should be visually meaningful.
@@ -462,12 +462,10 @@ export interface AttributeGroup<Vs extends ValueSet> {
   /** The actual set of attributes belonging to this group. */
   attributes: { [K in keyof Vs]: Attribute<Vs[K]> };
 
-  /**
-   * A scoring function for the attributes.
-   * @param evaluations The set of evaluated attributes.
-   * @return A score between 0.0 (lowest) and 1.0 (highest).
-   */
-  score: (evaluations: EvaluatedGroup<Vs>) => MaybeUnratedScore;
+	/**
+	 * The weights for each attribute when calculating the score for this attribute group.
+	 */
+	attributeWeights: { [K in keyof Vs]: number }
 }
 
 /**

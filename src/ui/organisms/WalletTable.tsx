@@ -19,17 +19,18 @@ import { ratedSoftwareWallets, unratedSoftwareWallet } from '@/data/software-wal
 import { HardwareIcon } from '@/icons/devices/HardwareIcon';
 import type { EvaluationTree } from '@/schema/attribute-groups';
 import {
-  getAttributeGroupInTree,
-  mapNonExemptAttributeGroupsInTree,
-} from '@/schema/attribute-groups';
-import type { AttributeGroup, ValueSet } from '@/schema/attributes';
-import type { Eip } from '@/schema/eips';
-import { AccountType } from '@/schema/features/account-support';
-import { HardwareWalletManufactureType } from '@/schema/features/profile';
-import { hasVariant, Variant } from '@/schema/variants';
-import { type RatedWallet, walletSupportedAccountTypes } from '@/schema/wallet';
-import { type NonEmptySet, setContains } from '@/types/utils/non-empty';
-import { cx } from '@/utils/cx';
+	calculateAttributeGroupScore,
+	getAttributeGroupInTree,
+	mapNonExemptAttributeGroupsInTree,
+} from '@/schema/attribute-groups'
+import type { AttributeGroup, ValueSet } from '@/schema/attributes'
+import type { Eip } from '@/schema/eips'
+import { AccountType } from '@/schema/features/account-support'
+import { HardwareWalletManufactureType } from '@/schema/features/profile'
+import { hasVariant, Variant } from '@/schema/variants'
+import { type RatedWallet, walletSupportedAccountTypes } from '@/schema/wallet'
+import { type NonEmptySet, setContains } from '@/types/utils/non-empty'
+import { cx } from '@/utils/cx'
 
 import { EipPreviewModal } from '../molecules/EipPreviewModal';
 import { PizzaSliceChart } from './PizzaSliceChart';
@@ -676,12 +677,13 @@ export default function WalletTable(): React.ReactElement {
     });
   }, [walletTypeFilter]);
 
-  // Helper to compute overall score by summing each attribute group's score
-  function getOverallScore(wallet: RatedWallet): number {
-    const groupScores = mapNonExemptAttributeGroupsInTree(
-      wallet.overall,
-      (attrGroup, evalGroup) => attrGroup.score(evalGroup)?.score ?? 0,
-    );
+	// Helper to compute overall score by summing each attribute group's score
+	function getOverallScore(wallet: RatedWallet): number {
+		const groupScores = mapNonExemptAttributeGroupsInTree(
+			wallet.overall,
+			(attrGroup, evalGroup) =>
+				calculateAttributeGroupScore(attrGroup.attributeWeights, evalGroup)?.score ?? 0,
+		)
 
     return groupScores.reduce((sum, score) => sum + score, 0);
   }
